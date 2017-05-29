@@ -39,6 +39,17 @@ router.all('/*', (req, res, next) => {
 
 });
 
+router.get('/lists', (req, res) => {
+    lists.quicklist((err, list) => {
+        res.status(200);
+        res.json({
+            data: {
+                lists: list
+            }
+        });
+    });
+});
+
 router.post('/subscribe/:listId', (req, res) => {
     let input = {};
     Object.keys(req.body).forEach(key => {

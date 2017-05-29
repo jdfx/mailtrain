@@ -6,7 +6,8 @@
     "description": "Sample spec for Swagger",
     "termsOfService": "http://swagger.io/terms/"
   },
-  "basePath": "/",
+  "host": "192.168.10.10:3000",
+  "basePath": "/api",
   "tags" : [
     {"name": "Tag1",
       "description": "API for something"
@@ -22,23 +23,16 @@
     "application/json"
   ],
   "paths": {
-    "/path/to/method": {
-      "post": {
-        "tags": ["Tag1"],
-        "description": "what this API does",
-        "operationId": "for the URL",
+    "/lists": {
+      "get": {
+        "tags": ["Lists"],
+        "description": "Get all lists",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "Job Parameters",
-            "in": "body",
-            "description": "Job to add to the database",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/create"
-            }
+            "$ref":"#/parameters/access_token"
           }
         ],
         "responses": {
@@ -52,22 +46,17 @@
       }
     }
   },
+  "parameters":{
+    "access_token": {
+      "name": "access_token",
+      "in": "query",
+      "description": "Access token",
+      "required": true,
+      "type": "string",
+      "default": "f98d9e47aba66af7236debc881986fd5d8365b5f"
+    }
+  },
   "definitions": {
-    "create": {
-      "properties": {
-        "eventId": {
-          "required":true,
-          "type": "string",
-          "example": "mathmaticial"
-        },
-        "numberRequired": {
-          "required":true,
-          "type":"integer",
-          "format": "int64",
-          "example": 500
-        }
-      }
-    },
     "response": {
       "properties": {
         "jobID": {
@@ -77,25 +66,19 @@
         }
       }
     },
-    "delete": {
-      "properties": {
-        "jobID": {
-          "required": true,
-          "type" : "string",
-          "example" : "234344234234"
-        },
-        "status" : {
-          "required": true,
-          "type": "string",
-          "example": "deleted"
-        }
-      }
-    },
     "400error" : {
       "properties": {
         "message": {
           "type": "string",
           "example" : "400 Bad Request"
+        }
+      }
+    },
+    "403error" : {
+      "properties": {
+        "message": {
+          "type": "string",
+          "example" : "Forbidden - No access token provided"
         }
       }
     }
