@@ -42,6 +42,7 @@ const grapejs = require('./routes/grapejs');
 const mosaico = require('./routes/mosaico');
 const reports = require('./routes/reports');
 const reportsTemplates = require('./routes/report-templates');
+const apiDocs = require('./routes/swagger');
 
 const app = express();
 
@@ -218,6 +219,7 @@ app.use('/api', api);
 app.use('/editorapi', editorapi);
 app.use('/grapejs', grapejs);
 app.use('/mosaico', mosaico);
+app.use('/api-docs', apiDocs);
 
 if (config.reports && config.reports.enabled === true) {
     app.use('/reports', reports);
@@ -260,5 +262,51 @@ app.use((err, req, res, next) => {
         error: {}
     });
 });
+
+//add swagger
+const argv = require('minimist')(process.argv.slice(2));
+const subpath = express(); // used for Swagger
+
+app.use("/v1", subpath);
+const swagger = require('swagger-node-express').createNew(subpath);
+swagger.setAppHandler(app);
+app.use(express.static('api-docs'));
+
+swagger.setApiInfo({
+    title: "MailTrain API",
+    description: "Email marketing management API for MailTrain",
+    termsOfServiceUrl: "",
+    contact: "info@joelderbyshire.digital",
+    license: "MIT",
+    licenseUrl: "#"
+});
+
+// Set api-doc path
+swagger.configureSwaggerPaths('', 'api-docs', '');
+
+// Configure the API domain
+var domain = 'localhost';
+if(argv.domain !== undefined) {
+    domain = argv.domain;
+}
+else {
+    console.log('No --domain=xxx specified, taking default hostname "localhost".');
+}
+
+// Configure the API port
+var port = 8080;
+if(argv.port !== undefined){
+    port = argv.port;
+}
+else {
+    console.log('No --port=xxx specified, taking default port ' + port + '.');
+}
+
+// Set and display the application URL
+var applicationUrl = 'http://' + domain + ':' + port;
+console.log('snapJob API running on ' + applicationUrl);
+
+
+swagger.configure(applicationUrl, '1.0.0');
 
 module.exports = app;
