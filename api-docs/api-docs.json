@@ -37,9 +37,393 @@
         ],
         "responses": {
           "200": {
-            "description": "create response",
+            "description": "Success response",
             "schema": {
-              "$ref": "#/definitions/response"
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscribe/{listId}": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "description": "Add a subscriber to a list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "The ID of the list to subscribe to",
+            "required": true,
+            "type": "string",
+            "default": "SJbyh3uZZ"
+          },
+          {
+            "name": "EMAIL",
+            "in": "formData",
+            "description": "The email of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "info@mailtrain.org"
+          },
+          {
+            "name": "FIRST_NAME",
+            "in": "formData",
+            "description": "The firstname of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "Winston"
+          },
+          {
+            "name": "LAST_NAME",
+            "in": "formData",
+            "description": "The lastname of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "Churchill"
+          },
+          {
+            "name": "TIMEZONE",
+            "in": "formData",
+            "description": "The timezone of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "UTC"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties" : {
+                    "id": {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unsubscribe/{listId}": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "description": "Add a subscriber to a list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "The ID of the list to subscribe to",
+            "required": true,
+            "type": "string",
+            "default": "SJbyh3uZZ"
+          },
+          {
+            "name": "EMAIL",
+            "in": "formData",
+            "description": "The email of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "info@mailtrain.org"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object",
+                  "properties": {
+                    "unsubscribed" : {
+                      "type" : "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/{listId}": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "description": "Add a subscriber to a list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "The ID of the list to subscribe to",
+            "required": true,
+            "type": "string",
+            "default": "SJbyh3uZZ"
+          },
+          {
+            "name": "EMAIL",
+            "in": "formData",
+            "description": "The email of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "info@mailtrain.org"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "deleted": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/field/{listId}": {
+      "post": {
+        "tags": ["Fields"],
+        "description": "Add a field to a list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "The ID of the list to subscribe to",
+            "required": true,
+            "type": "string",
+            "default": "SJbyh3uZZ"
+          },
+          {
+            "name": "NAME",
+            "in": "formData",
+            "description": "The name of the custom field",
+            "required": true,
+            "type": "string",
+            "default": "Test field"
+          },
+          {
+            "name": "DEFAULT",
+            "in": "formData",
+            "description": "Default merge tag value",
+            "required": true,
+            "type": "string",
+            "default": "test"
+          },
+          {
+            "name": "TYPE",
+            "in": "formData",
+            "description": "Field type",
+            "required": true,
+            "type": "string",
+            "default": "text"
+          },
+          {
+            "name": "GROUP",
+            "in": "formData",
+            "description": "Field type",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "GROUP_TEMPLATE",
+            "in": "formData",
+            "description": "Field type",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object",
+                  "properties": {
+                    "id": {
+                      "type" : "integer"
+                    },
+                    "tag": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blacklist/get": {
+      "get": {
+        "tags": ["Blacklist"],
+        "description": "Add an email to the global blacklist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Start position (optional, default 0)",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit emails count in response (optional, default 10000)",
+            "required": false,
+            "type": "integer",
+            "default": "10000"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": " filter by part of email (optional, default '')",
+            "required": true,
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object",
+                  "properties": {
+                    "total": {
+                      "type" :"integer"
+                    },
+                    "start": {
+                      "type" :"integer"
+                    },
+                    "limit": {
+                      "type" :"integer"
+                    },
+                    "emails": {
+                      "type" :"array"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blacklist/add": {
+      "post": {
+        "tags": ["Blacklist"],
+        "description": "Add an email to the global blacklist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "EMAIL",
+            "in": "formData",
+            "description": "The email of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "badperson@mailtrain.org"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blacklist/delete": {
+      "post": {
+        "tags": ["Blacklist"],
+        "description": "Delete an email to the global blacklist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "EMAIL",
+            "in": "formData",
+            "description": "The email of the subscriber",
+            "required": true,
+            "type": "string",
+            "default": "badperson@mailtrain.org"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object"
+                }
+              }
             }
           }
         }
@@ -57,30 +441,6 @@
     }
   },
   "definitions": {
-    "response": {
-      "properties": {
-        "jobID": {
-          "required": true,
-          "type" : "string",
-          "example" : "12321432423"
-        }
-      }
-    },
-    "400error" : {
-      "properties": {
-        "message": {
-          "type": "string",
-          "example" : "400 Bad Request"
-        }
-      }
-    },
-    "403error" : {
-      "properties": {
-        "message": {
-          "type": "string",
-          "example" : "Forbidden - No access token provided"
-        }
-      }
-    }
+
   }
 }
