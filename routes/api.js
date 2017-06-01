@@ -3,6 +3,8 @@
 let users = require('../lib/models/users');
 let lists = require('../lib/models/lists');
 let fields = require('../lib/models/fields');
+let templates = require('../lib/models/templates');
+let campaigns = require('../lib/models/campaigns');
 let blacklist = require('../lib/models/blacklist');
 let subscriptions = require('../lib/models/subscriptions');
 let tools = require('../lib/tools');
@@ -48,6 +50,27 @@ router.get('/lists', (req, res) => {
             }
         });
     });
+});
+
+router.post('/list', (req, res) => {
+
+    lists.create(req.body, (err, id) => {
+        if (err || !id) {
+            log.error('API', err);
+            res.status(500);
+            return res.json({
+                error: err.message || err,
+                data: []
+            });
+        }
+        res.status(200);
+        res.json({
+            data: {
+                id
+            }
+        });
+    });
+
 });
 
 router.post('/subscribe/:listId', (req, res) => {
@@ -334,6 +357,36 @@ router.post('/field/:listId', (req, res) => {
                     tag
                 }
             });
+        });
+    });
+});
+
+router.get('/templates', (req, res) => {
+    templates.quicklist((err, list) => {
+        res.status(200);
+        res.json({
+            data: {
+                templates: list
+            }
+        });
+    });
+});
+
+router.post('/campaign', (req, res) => {
+    campaigns.create(req.body, false, (err, id) => {
+        if (err || !id) {
+            log.error('API', err);
+            res.status(500);
+            return res.json({
+                error: err.message || err,
+                data: []
+            });
+        }
+        res.status(200);
+        res.json({
+            data: {
+                id
+            }
         });
     });
 });

@@ -43,7 +43,65 @@
                 "data": {
                   "type": "object",
                   "properties": {
-
+                      "lists": {
+                        "type" : "object",
+                        "properties" : {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name" : {
+                            "type": "string"
+                          },
+                          "subscribers" : {
+                            "type": "integer"
+                          },
+                          "segements": {
+                              "type": "array",
+                              "items": {
+                                "type": "object"
+                              }
+                          }
+                        }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list": {
+      "post": {
+        "tags": ["Lists"],
+        "description": "Create a list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "The name of the list",
+            "required": true,
+            "type": "string",
+            "default": "This is a Mailtrain list"
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id" : {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -273,6 +331,166 @@
             "description": "Field type",
             "required": false,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type" : "object",
+                  "properties": {
+                    "id": {
+                      "type" : "integer"
+                    },
+                    "tag": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/templates": {
+      "get": {
+        "tags": ["Templates"],
+        "description": "Get all templates",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "templates": {
+                      "type" : "object",
+                      "properties" : {
+                          "id": {
+                            "type": "integer"
+                          },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaign": {
+      "post": {
+        "tags": ["Campaign"],
+        "description": "Create a campaign",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/parameters/access_token"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "The name of the campaign",
+            "required": true,
+            "type": "string",
+            "default": "Mailtrain campaign"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "Describe the campaign",
+            "required": true,
+            "type": "string",
+            "default": "This is a Mailtrain campaign"
+          },
+          {
+            "name": "tracking-disabled",
+            "in": "formData",
+            "description": "Tracking flag",
+            "required": true,
+            "type": "integer",
+            "default": "1"
+          },
+          {
+            "name": "list",
+            "in": "formData",
+            "description": "The list and the segment ID's in this format - listID:Segment (segment portion is optional, can just be a single Int)",
+            "required": true,
+            "type": "string",
+            "default": "2:3"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "description": "Campaign type (1 - Normal, 2 - RSS, 4 - Triggered",
+            "required": true,
+            "type": "integer",
+            "default": "4"
+          },
+          {
+            "name": "template",
+            "in": "formData",
+            "description": "Template ID",
+            "required": true,
+            "type": "integer",
+            "default": "1"
+          },
+          {
+            "name": "source-url",
+            "in": "formData",
+            "description": "You can give it a source URL, a HTML page for Normal and Triggered campaigns, or an RSS feed for RSS campaigns.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "formData",
+            "description": "From name",
+            "required": true,
+            "type": "string",
+            "default": "mailtrain"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "From address",
+            "required": true,
+            "type": "string",
+            "default": "info@mailtrain.org"
+          },
+          {
+            "name": "reply-to",
+            "in": "formData",
+            "description": "Reply to address",
+            "required": true,
+            "type": "string",
+            "default": "info@mailtrain.org"
+          },
+          {
+            "name": "subject",
+            "in": "formData",
+            "description": "Subject for the campaign",
+            "required": true,
+            "type": "string",
+            "default": "This is a Mailtrain campaign"
           }
         ],
         "responses": {
