@@ -43,6 +43,13 @@
     </div>
 
     <div class="form-group">
+        <label for="template-tags" class="col-sm-2 control-label">{{#translate}}Tags{{/translate}}</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="template-tags" name="tags" rows="3" placeholder="{{#translate}}Optional tags for this template (can be useful when programatically accessing templates via the API){{/translate}}">{{tags}}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="pull-right">
                 <button type="submit" form="templates-delete" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> {{#translate}}Delete Template{{/translate}}</button>
@@ -51,5 +58,12 @@
         </div>
     </div>
 
-
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        $('#template-tags').tagsInput();
+
+    });
+</script>

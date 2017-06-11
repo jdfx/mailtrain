@@ -54,7 +54,7 @@ router.get('/lists', (req, res) => {
 
 router.post('/list', (req, res) => {
 
-    lists.create(req.body, (err, id) => {
+    lists.create(req.body, (err, id, cid) => {
         if (err || !id) {
             log.error('API', err);
             res.status(500);
@@ -66,7 +66,8 @@ router.post('/list', (req, res) => {
         res.status(200);
         res.json({
             data: {
-                id
+                id,
+                cid
             }
         });
     });

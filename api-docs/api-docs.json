@@ -49,6 +49,9 @@
                           "id": {
                             "type": "integer"
                           },
+                          "cid": {
+                            "type": "integer"
+                          },
                           "name" : {
                             "type": "string"
                           },
@@ -100,6 +103,9 @@
                   "type": "object",
                   "properties": {
                     "id" : {
+                      "type": "string"
+                    },
+                    "cid" : {
                       "type": "string"
                     }
                   }
@@ -195,7 +201,7 @@
           {
             "name": "listId",
             "in": "path",
-            "description": "The ID of the list to subscribe to",
+            "description": "The cID of the list to subscribe to",
             "required": true,
             "type": "string",
             "default": "SJbyh3uZZ"
@@ -242,7 +248,7 @@
           {
             "name": "listId",
             "in": "path",
-            "description": "The ID of the list to subscribe to",
+            "description": "The cID of the list to subscribe to",
             "required": true,
             "type": "string",
             "default": "SJbyh3uZZ"
@@ -289,7 +295,7 @@
           {
             "name": "listId",
             "in": "path",
-            "description": "The ID of the list to subscribe to",
+            "description": "The cID of the list to add the field to",
             "required": true,
             "type": "string",
             "default": "SJbyh3uZZ"
